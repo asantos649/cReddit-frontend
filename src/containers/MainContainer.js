@@ -17,10 +17,10 @@ class MainContainer extends React.Component{
         fetch('http://localhost:3000/posts')
         .then(resp => resp.json())
         .then(data => {
+            const newArray = [...data]
             this.setState ({
-                postCollection: data
+                postCollection: newArray
             })
-            console.log(data)
         })
     }
     render(){
@@ -28,6 +28,7 @@ class MainContainer extends React.Component{
             <div>
                 <NavBar />
                 <Topics />
+                <ContentContainer posts={this.state.postCollection}/>
             </div>
         )
     }
