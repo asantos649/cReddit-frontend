@@ -42,6 +42,7 @@ export default class CollapsedCommentForm extends React.Component {
                 <NewCommentForm
                   handleSubmit={this.props.handleSubmit}
                   topicsList={this.props.topicsList}
+                  post={this.props.post}
                 />
               ) : null}
             </div>

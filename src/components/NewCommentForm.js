@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, TextArea, Button, Card, Radio } from "semantic-ui-react";
+import { Form, Input, TextArea, Button, Card, Radio, CheckBox } from "semantic-ui-react";
 
 class NewCommentForm extends React.Component {
   state = {
@@ -9,16 +9,43 @@ class NewCommentForm extends React.Component {
   };
 
   handleChange = e => {
+    let key;
+    let value;
+
+    ((e.target.innerText === 'Fact') || (e.target.innerText === 'Opinion')) ? (key = 'is_fact') : (key = e.target.name);
+    ((e.target.innerText === 'Fact') || (e.target.innerText === 'Opinion')) ? (value = (e.target.innerText === 'Fact')) : (value = e.target.value);
     this.setState({
-      [e.target.name]: e.target.value
+      [key]: value
     });
-    // console.log(this.state);
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.handleSubmit(this.state);
-    console.log("before", this.state);
+    const newComment = {
+      ...this.state, 
+      upvotes: 0,
+      downvotes: 0,
+      source_validated: 0,
+      source_disputed: 0,
+      user_id: 2,
+      post_id: this.props.post,
+    }
+
+    console.log('clicked')
+    fetch("http://localhost:3000/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify(newComment)
+      })
+        .then(res => res.json())
+        .then(res => {
+          console.log(res)})
+    // const newCommentsList = [...this.props.post.comments, newComment]
+    // const newPost = {...this.props.post, comments: newCommentsList}
+    // this.props.handleSubmit(newPost);
   };
 
   render() {
@@ -60,6 +87,12 @@ class NewCommentForm extends React.Component {
       { name: "topic", key: "o", text: "Other", value: "other" }
     ];
 
+    const radioButtonStyle = {
+      display: 'flex',
+      justifyContent: 'spaceBetween',
+      marginLeft: '.6em'
+    }
+
     let renderOptions = topicsList.map(topic => {
       return (
         <option key={topic.key} value={topic.value}>
@@ -79,7 +112,7 @@ class NewCommentForm extends React.Component {
           value={this.state.content}
           onChange={this.handleChange}
         />
-        <Form.Group label="Fact or Opinion" widths="equal">
+        <Form.Group label="Fact or Opinion" style={{flexDirection: 'column'}}>
           {/* <label htmlFor="topic">Topic</label> */}
 
           <Form.Field
@@ -91,7 +124,26 @@ class NewCommentForm extends React.Component {
             value={this.state.title}
             onChange={this.handleChange}
           />
-          <Form.Field control={Radio} />
+          <Form.Group className='radio-buttons' style={{flexDirection: 'row'}}>
+            <Form.Checkbox 
+              label="Fact" 
+              control={Radio} 
+              style={radioButtonStyle}
+              name="is_fact"
+              checked={this.state.is_fact}
+              onChange={this.handleChange}
+              value = {'true'}
+            />
+            <Form.Field 
+              label="Opinion" 
+              control={Radio} 
+              style={radioButtonStyle}
+              name="isFact"
+              checked={!this.state.is_fact}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          
         </Form.Group>
         <Form.Field
           id="form-button-control-public"

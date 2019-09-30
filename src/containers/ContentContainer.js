@@ -19,6 +19,7 @@ class ContentContainer extends React.Component {
                         post={matchingPost}
                         handleUpvote={this.props.handleUpvote}
                         handleDownvote={this.props.handleDownvote}
+                        handleSubmit={this.props.handleSubmit}
                     />
                 }}/>
                 <Route exact path='/' render={() => {

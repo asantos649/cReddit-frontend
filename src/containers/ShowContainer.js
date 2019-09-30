@@ -27,7 +27,7 @@ class ShowContainer extends React.Component {
           handleUpvote={this.props.handleUpvote}
           handleDownvote={this.props.handleDownvote}
         />
-        <CollapsedCommentForm />
+        <CollapsedCommentForm handleSubmit={this.props.handleSubmit} post={this.props.post}/>
         {commentsComponents}
       </div>
     ) : (

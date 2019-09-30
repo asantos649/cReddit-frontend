@@ -77,3 +77,7 @@ div#comment-link.meta {
   justify-content: flex-start;
   margin-top: 5em;
 }
+
+.radio-buttons {
+  flex-direction: row
+}

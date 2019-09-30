@@ -19,6 +19,8 @@ class MainContainer extends React.Component {
   };
 
   handleSubmit = post => {
+    console.log('clicked', post)
+
     if (post.title && post.content && post.topic) {
       let postObj = {
         ...post,
@@ -38,6 +40,7 @@ class MainContainer extends React.Component {
       })
         .then(res => res.json())
         .then(res => {
+            console.log(res)
           let newArray = [res, ...this.state.postCollection];
           //
           this.setState({
