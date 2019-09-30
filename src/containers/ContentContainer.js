@@ -1,16 +1,21 @@
-import React from 'react';
+import React from "react";
+import Post from "../components/Post";
 
-class ContentContainer extends React.Component{
-    render(){
+class ContentContainer extends React.Component {
+  render() {
+    const postComponents = this.props.posts.map(postObj => {
+      return (
+        <Post
+          post={postObj}
+          key={postObj.id}
+          handleUpvote={this.props.handleUpvote}
+          handleDownvote={this.props.handleDownvote}
+        />
+      );
+    });
 
-        const postComponents = this.props.posts.map(post => {<Post post={post} key={post.id}/>})
-
-        return(
-            <div>
-                {postComponents}
-            </div>
-        )
-    }
+    return <div>{postComponents}</div>;
+  }
 }
 
-export default ContentContainer
+export default ContentContainer;

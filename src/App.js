@@ -1,7 +1,6 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import MainContainer from './containers/MainContainer';
+import React from "react";
+import "./App.css";
+import MainContainer from "./containers/MainContainer";
 
 function App() {
   return (
