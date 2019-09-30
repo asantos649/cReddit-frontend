@@ -43,6 +43,7 @@ class Post extends React.Component {
               {this.props.post.title}
             </Card.Header>
             <Card.Meta>@{this.props.post.user.username}</Card.Meta>
+            <Card.Meta>{this.props.post.topic}</Card.Meta>
             <Card.Description style={cardDescriptionStyle}>
               {this.props.post.content}
             </Card.Description>
