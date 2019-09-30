@@ -72,3 +72,8 @@
   background-color: #ffffff;
   height: 2em;
 }
+
+div#comment-link.meta {
+  justify-content: flex-start;
+  margin-top: 5em;
+}

@@ -29,7 +29,8 @@ class Post extends React.Component {
       width: "750px"
     };
     const cardHeaderStyle = {
-      fontSize: "2em"
+      fontSize: "2em",
+      marginBottom: "0.2em"
     };
     const cardDescriptionStyle = {
       fontSize: "1em"
@@ -65,6 +66,12 @@ class Post extends React.Component {
                 {this.props.post.downvotes} Dislikes
               </Button>
             </div>
+            <Link to={`/posts/${this.props.post.id}`} style={{ textDecoration: 'none', color: '#000000' }} >
+                <Card.Meta style={{textAlign: 'left', marginTop: '1em'}}>
+                    <img src='/commentIcon.png' alt="comment" style={{height:'1.1em', opacity: '0.4', marginRight: '4px'}}>
+                    </img>{this.props.post.comments.length} {this.props.post.comments.length === 1 ? 'Comment' : 'Comments'}
+                </Card.Meta>
+            </Link>
           </Card.Content>
         </Card>
       </Card.Group>

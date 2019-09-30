@@ -12,9 +12,9 @@ class NavBar extends React.Component {
 
     return (
       <Menu secondary>
-        <Menu.Item>
+        <Menu.Item style={{marginRight: '0em'}}>
           <Link to='/'>
-            <img src={`/Logo.png`} alt="cReddit" style={{height: '3em'}}></img>
+            <img src={`/Logo.png`} alt="cReddit" style={{height: '3em', marginLeft: '10px'}}></img>
           </Link>
         </Menu.Item>
         <Menu.Item>
