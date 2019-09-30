@@ -37,3 +37,38 @@
 .ui form {
   margin-top: 2em;
 }
+
+.cardGroupStyle {
+  margin-top: 35px;
+}
+
+.cardMarginStyle {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+  width: 750px;
+}
+
+.selectStyle {
+  height: 38px;
+  margin-top: 0.3em;
+  padding: 1em;
+}
+
+.buttonStyle {
+  background-color: #25aae1;
+}
+
+.textStyle {
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.divStyle {
+  width: 100%;
+}
+
+.filter-selector {
+  background-color: #ffffff;
+  height: 2em;
+}

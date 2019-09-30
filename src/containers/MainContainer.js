@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar";
 import ContentContainer from "./ContentContainer";
 import NewForm from "../components/NewForm";
 import CollapsedForm from "../components/CollapsedForm";
+import Filter from "../components/Filter";
 
 class MainContainer extends React.Component {
   state = {
@@ -114,6 +115,7 @@ class MainContainer extends React.Component {
           handleSubmit={this.handleSubmit}
           topicsList={this.state.topicsList}
         />
+        <Filter />
         <Topics />
         <ContentContainer
           handleUpvote={this.handleUpvote}

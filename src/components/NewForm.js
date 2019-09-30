@@ -69,9 +69,6 @@ class NewForm extends React.Component {
     });
 
     return (
-      // <Card.Group style={cardGroupStyle}>
-      //   <Card style={cardMarginStyle}>
-      //     <Card.Content>
       <Form onSubmit={this.handleSubmit}>
         <Form.Group widths="equal">
           {/* <label htmlFor="topic">Topic</label> */}
@@ -111,14 +108,11 @@ class NewForm extends React.Component {
         <Form.Field
           id="form-button-control-public"
           control={Button}
-          content="Confirm"
+          content="Post"
           style={buttonStyle}
           // label="Label with htmlFor"
         />
       </Form>
-      //     </Card.Content>
-      //   </Card>
-      // </Card.Group>
     );
   }
 }
