@@ -20,3 +20,20 @@
 .App-link {
   color: #09d3ac;
 }
+
+.collabsible-header {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.collabsible-button {
+  border: none;
+  justify-content: space-between;
+  margin-left: 14em;
+  margin-top: 0px;
+  font-size: 2em;
+}
+
+.ui form {
+  margin-top: 2em;
+}

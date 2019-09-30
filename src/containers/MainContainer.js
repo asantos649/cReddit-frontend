@@ -3,6 +3,7 @@ import Topics from "../components/Topics";
 import NavBar from "../components/NavBar";
 import ContentContainer from "./ContentContainer";
 import NewForm from "../components/NewForm";
+import CollapsedForm from "../components/CollapsedForm";
 
 class MainContainer extends React.Component {
   state = {
@@ -18,31 +19,32 @@ class MainContainer extends React.Component {
   };
 
   handleSubmit = post => {
-    let postObj = {
-      ...post,
-      image_url: null,
-      upvotes: 0,
-      downvotes: 0,
-      user_id: 3
-    };
+    if (post.title && post.content && post.topic) {
+      let postObj = {
+        ...post,
+        image_url: null,
+        upvotes: 0,
+        downvotes: 0,
+        user_id: 3
+      };
 
-    fetch("http://localhost:3000/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify(postObj)
-    })
-      .then(res => res.json())
-      .then(res => {
-        let newArray = [res, ...this.state.postCollection];
-        //
-        this.setState({
-          postCollection: newArray
+      fetch("http://localhost:3000/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify(postObj)
+      })
+        .then(res => res.json())
+        .then(res => {
+          let newArray = [res, ...this.state.postCollection];
+          //
+          this.setState({
+            postCollection: newArray
+          });
         });
-      });
-    // .catch(console.log);
+    }
   };
 
   handleUpvote = post => {
@@ -90,7 +92,14 @@ class MainContainer extends React.Component {
     fetch("http://localhost:3000/posts")
       .then(resp => resp.json())
       .then(data => {
+        console.log("fetch data:", data);
         const newArray = [...data];
+
+        // sorting array by most engagement
+        newArray.sort(function(a, b) {
+          return b.upvotes + b.downvotes - (a.upvotes + a.downvotes);
+        });
+
         this.setState({
           postCollection: newArray
         });
@@ -101,7 +110,7 @@ class MainContainer extends React.Component {
     return (
       <div>
         <NavBar />
-        <NewForm
+        <CollapsedForm
           handleSubmit={this.handleSubmit}
           topicsList={this.state.topicsList}
         />

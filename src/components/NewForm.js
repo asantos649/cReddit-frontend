@@ -34,8 +34,21 @@ class NewForm extends React.Component {
 
     const selectStyle = {
       height: "2.7em",
-      marginTop: "1.65em",
+      marginTop: "0.3em",
       padding: "1em"
+    };
+
+    const buttonStyle = {
+      backgroundColor: "#25aae1"
+    };
+
+    const textStyle = {
+      fontSize: "12.5px",
+      fontWeight: "700"
+    };
+
+    const divStyle = {
+      width: "100%"
     };
 
     const topicsList = [
@@ -56,66 +69,56 @@ class NewForm extends React.Component {
     });
 
     return (
-      <Card.Group style={cardGroupStyle}>
-        <Card style={cardMarginStyle}>
-          <Card.Content>
-            <Form onSubmit={this.handleSubmit}>
-              <Form.Group widths="equal">
-                <select
-                  name="topic"
-                  placeholder="Topic"
-                  value={this.state.topic}
-                  onChange={this.handleChange}
-                  style={selectStyle}
-                >
-                  <option>Please Select a Topic</option>
-                  {renderOptions}
-                </select>
-                {/* <Form.Field
-                  name="topic"
-                  control={Select}
-                  options={topicsList}
-                  label={{
-                    children: "Topic",
-                    htmlFor: "form-select-control-topic"
-                  }}
-                  placeholder="Topic"
-                  search
-                  searchInput={{ id: "form-select-control-topic" }}
-                  value={this.state.topic}
-                  onChange={e =>
-                    this.handleChange(e, { topic: this.state.topic })
-                  }
-                /> */}
-                <Form.Field
-                  name="title"
-                  id="form-input-control-first-name"
-                  control={Input}
-                  label="Title"
-                  placeholder="Title"
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                />
-              </Form.Group>
-              <Form.Field
-                name="content"
-                id="form-textarea-control-opinion"
-                control={TextArea}
-                label="Opinion"
-                placeholder="Opinion"
-                value={this.state.content}
-                onChange={this.handleChange}
-              />
-              <Form.Field
-                id="form-button-control-public"
-                control={Button}
-                content="Confirm"
-                // label="Label with htmlFor"
-              />
-            </Form>
-          </Card.Content>
-        </Card>
-      </Card.Group>
+      // <Card.Group style={cardGroupStyle}>
+      //   <Card style={cardMarginStyle}>
+      //     <Card.Content>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Group widths="equal">
+          {/* <label htmlFor="topic">Topic</label> */}
+          <div style={divStyle}>
+            <label style={textStyle}>Topic</label>
+            <select
+              label="Topic"
+              name="topic"
+              placeholder="Topic"
+              value={this.state.topic}
+              onChange={this.handleChange}
+              style={selectStyle}
+            >
+              <option>Please Select a Topic</option>
+              {renderOptions}
+            </select>
+          </div>
+          <Form.Field
+            name="title"
+            id="form-input-control-first-name"
+            control={Input}
+            label="Title"
+            placeholder="Title"
+            value={this.state.title}
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+        <Form.Field
+          name="content"
+          id="form-textarea-control-opinion"
+          control={TextArea}
+          label="Opinion"
+          placeholder="Opinion"
+          value={this.state.content}
+          onChange={this.handleChange}
+        />
+        <Form.Field
+          id="form-button-control-public"
+          control={Button}
+          content="Confirm"
+          style={buttonStyle}
+          // label="Label with htmlFor"
+        />
+      </Form>
+      //     </Card.Content>
+      //   </Card>
+      // </Card.Group>
     );
   }
 }
