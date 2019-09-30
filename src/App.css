@@ -22,14 +22,14 @@
 }
 
 .collabsible-header {
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .collabsible-button {
   border: none;
-  justify-content: space-between;
-  margin-left: 14em;
+  /* justify-content: space-between; */
   margin-top: 0px;
   font-size: 2em;
 }

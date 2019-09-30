@@ -1,8 +1,8 @@
 import React from "react";
-import NewForm from "./NewForm";
+import NewCommentForm from "./NewCommentForm";
 import { Form, Input, TextArea, Button, Card } from "semantic-ui-react";
 
-export default class CollapsedForm extends React.Component {
+export default class CollapsedCommentForm extends React.Component {
   state = {
     clicked: false
   };
@@ -33,13 +33,13 @@ export default class CollapsedForm extends React.Component {
           <Card.Content>
             <div>
               <div className="collabsible-header" onClick={this.handleClick}>
-                <h1>What's on your mind</h1>
+                <h2>Add a Comment</h2>
                 <h3 className="collabsible-button">
                   {this.state.clicked ? "-" : "+"}
                 </h3>
               </div>
               {this.state.clicked ? (
-                <NewForm
+                <NewCommentForm
                   handleSubmit={this.props.handleSubmit}
                   topicsList={this.props.topicsList}
                 />
