@@ -2,9 +2,8 @@ import React from "react";
 import Topics from "../components/Topics";
 import NavBar from "../components/NavBar";
 import ContentContainer from "./ContentContainer";
-import NewForm from "../components/NewForm";
-import CollapsedForm from "../components/CollapsedForm";
-import Filter from "../components/Filter";
+// import NewForm from "../components/NewForm";
+import {Route, Switch, withRouter} from 'react-router-dom'
 
 class MainContainer extends React.Component {
   state = {
@@ -94,7 +93,7 @@ class MainContainer extends React.Component {
       .then(resp => resp.json())
       .then(data => {
         console.log("fetch data:", data);
-        const newArray = [...data];
+        let newArray = [...data];
 
         // sorting array by most engagement
         newArray.sort(function(a, b) {
@@ -111,20 +110,23 @@ class MainContainer extends React.Component {
     return (
       <div>
         <NavBar />
-        <CollapsedForm
+        <Topics />
+
+        {/* <CollapsedForm
           handleSubmit={this.handleSubmit}
           topicsList={this.state.topicsList}
         />
-        <Filter />
-        <Topics />
+        <Filter /> */}
         <ContentContainer
           handleUpvote={this.handleUpvote}
           posts={this.state.postCollection}
           handleDownvote={this.handleDownvote}
+          handleSubmit={this.handleSubmit}
+          topicsList={this.state.topicsList}
         />
       </div>
     );
   }
 }
 
-export default MainContainer;
+export default withRouter(MainContainer);

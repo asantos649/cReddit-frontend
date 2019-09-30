@@ -1,6 +1,6 @@
 import React from "react";
 import { Input, Menu } from "semantic-ui-react";
-import logo from "../logo.svg";
+import {Link} from 'react-router-dom'
 
 class NavBar extends React.Component {
   state = { activeItem: "home" };
@@ -13,7 +13,9 @@ class NavBar extends React.Component {
     return (
       <Menu secondary>
         <Menu.Item>
-          <img src={logo} alt="cReddit"></img>
+          <Link to='/'>
+            <img src={`/Logo.png`} alt="cReddit" style={{height: '3em'}}></img>
+          </Link>
         </Menu.Item>
         <Menu.Item>
           <Input icon="search" placeholder="Search..." />

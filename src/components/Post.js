@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Card } from "semantic-ui-react";
+import {Link} from 'react-router-dom'
 
 class Post extends React.Component {
   handleUpvoteClick = e => {
@@ -39,14 +40,16 @@ class Post extends React.Component {
       <Card.Group style={cardGroupStyle}>
         <Card style={cardMarginStyle}>
           <Card.Content>
-            <Card.Header style={cardHeaderStyle}>
-              {this.props.post.title}
-            </Card.Header>
-            <Card.Meta>@{this.props.post.user.username}</Card.Meta>
-            <Card.Meta>{this.props.post.topic}</Card.Meta>
-            <Card.Description style={cardDescriptionStyle}>
-              {this.props.post.content}
-            </Card.Description>
+              <Link to={`/posts/${this.props.post.id}`} style={{ textDecoration: 'none', color: '#000000' }} >
+                <Card.Header style={cardHeaderStyle}>
+                {this.props.post.title}
+                </Card.Header>
+                <Card.Meta>@{this.props.post.user.username}</Card.Meta>
+                <Card.Meta>{this.props.post.topic}</Card.Meta>
+                <Card.Description style={cardDescriptionStyle}>
+                {this.props.post.content}
+                </Card.Description>
+              </Link>
           </Card.Content>
           <Card.Content extra>
             <div className="ui two buttons">
