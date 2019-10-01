@@ -14,6 +14,7 @@ class ShowContainer extends React.Component {
       });
       commentsComponents = sortedComments.map(comment => (
         <Comment
+          handleCommentDislike={this.props.handleCommentDislike}
           handleCommentLike={this.props.handleCommentLike}
           key={comment.id}
           comment={comment}

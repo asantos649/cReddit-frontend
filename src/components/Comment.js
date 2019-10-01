@@ -6,6 +6,11 @@ class Comment extends React.Component {
     this.props.handleCommentLike(this.props.comment);
     // debugger;
   };
+
+  handleDislike = e => {
+    this.props.handleCommentDislike(this.props.comment);
+  };
+
   render() {
     const cardGroupStyle = {
       marginTop: "35px"
@@ -72,7 +77,7 @@ class Comment extends React.Component {
               >
                 {this.props.comment.upvotes} Likes
               </Button>
-              <Button basic color="red">
+              <Button basic color="red" onClick={this.handleDislike}>
                 {this.props.comment.downvotes} Dislikes
               </Button>
             </div>
@@ -108,7 +113,7 @@ class Comment extends React.Component {
                   onClick={this.handleUpvoteClick}
                   ref="upvoteButton"
                 >
-                  {this.props.comment.upvotes} Validated
+                  {this.props.comment.source_validated} Validated
                 </Button>
                 <Button
                   basic
@@ -116,7 +121,7 @@ class Comment extends React.Component {
                   style={buttonStyle}
                   onClick={this.handleDownvoteClick}
                 >
-                  {this.props.comment.downvotes} Disputed
+                  {this.props.comment.source_disputed} Disputed
                 </Button>
               </div>
             </Card.Content>

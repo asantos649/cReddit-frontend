@@ -19,6 +19,7 @@ class ContentContainer extends React.Component {
 
               return (
                 <ShowContainer
+                  handleCommentDislike={this.props.handleCommentDislike}
                   handleCommentLike={this.props.handleCommentLike}
                   topicsList={this.props.topicsList}
                   post={matchingPost}

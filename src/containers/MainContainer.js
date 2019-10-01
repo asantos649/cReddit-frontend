@@ -10,6 +10,50 @@ class MainContainer extends React.Component {
     postCollection: []
   };
 
+  handleCommentDislike = comment => {
+    comment.downvotes = comment.downvotes += 1;
+
+    let postId;
+    comment.post_id ? (postId = comment.post_id) : (postId = comment.post.id);
+
+    console.log("callback object recieved:", comment);
+
+    fetch(`http://localhost:3000/comments/${comment.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(comment)
+    })
+      .then(res => res.json())
+      .then(res => {
+        let newPostCollection = [...this.state.postCollection];
+        //
+        console.log(comment.post_id);
+
+        let postObj = newPostCollection.find(post => post.id === postId);
+        //
+        console.log("post obj", postObj);
+
+        let commentInd = postObj.comments.findIndex(c => c.id === comment.id);
+        //
+        postObj.comments[commentInd] = res;
+
+        //
+        let indexPos = this.state.postCollection.findIndex(
+          post => post.id === comment.post_id
+        );
+
+        newPostCollection[indexPos] = postObj;
+
+        this.setState({
+          postsCollection: newPostCollection
+        });
+      })
+      .catch(console.log);
+  };
+
   handleCommentLike = comment => {
     comment.upvotes = comment.upvotes += 1;
 
@@ -180,6 +224,7 @@ class MainContainer extends React.Component {
         <NavBar />
         <Topics />
         <ContentContainer
+          handleCommentDislike={this.handleCommentDislike}
           handleCommentLike={this.handleCommentLike}
           handleUpvote={this.handleUpvote}
           posts={this.state.postCollection}
