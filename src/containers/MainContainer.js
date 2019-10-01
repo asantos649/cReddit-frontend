@@ -3,24 +3,91 @@ import Topics from "../components/Topics";
 import NavBar from "../components/NavBar";
 import ContentContainer from "./ContentContainer";
 // import NewForm from "../components/NewForm";
-import {Route, Switch, withRouter} from 'react-router-dom'
+import { withRouter } from "react-router-dom";
 
 class MainContainer extends React.Component {
   state = {
-    postCollection: [],
-    topicsList: [
-      { name: "topic", key: "s", text: "Sports", value: "sports" },
-      { name: "topic", key: "p", text: "Politics", value: "politics" },
-      { name: "topic", key: "c", text: "Culture", value: "culture" },
-      { name: "topic", key: "t", text: "Technology", value: "technology" },
-      { name: "topic", key: "a", text: "Academic", value: "academics" },
-      { name: "topic", key: "o", text: "Other", value: "other" }
-    ]
+    postCollection: []
   };
 
-  handleSubmit = post => {
-    console.log('clicked', post)
+  handleCommentLike = comment => {
+    comment.upvotes = comment.upvotes += 1;
 
+    let postId;
+    comment.post_id ? (postId = comment.post_id) : (postId = comment.post.id);
+
+    console.log("callback object recieved:", comment);
+
+    fetch(`http://localhost:3000/comments/${comment.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(comment)
+    })
+      .then(res => res.json())
+      .then(res => {
+        let newPostCollection = [...this.state.postCollection];
+        //
+        console.log(comment.post_id);
+
+        let postObj = newPostCollection.find(post => post.id === postId);
+        //
+        console.log("post obj", postObj);
+
+        let commentInd = postObj.comments.findIndex(c => c.id === comment.id);
+        //
+        postObj.comments[commentInd] = res;
+
+        //
+        let indexPos = this.state.postCollection.findIndex(
+          post => post.id === comment.post_id
+        );
+
+        newPostCollection[indexPos] = postObj;
+
+        this.setState({
+          postsCollection: newPostCollection
+        });
+      })
+      .catch(console.log);
+  };
+
+  handleCommentSubmit = comment => {
+    let postObj = this.state.postCollection.find(
+      post => post.id === comment.post_id
+    );
+
+    let indexPos = this.state.postCollection.findIndex(
+      post => post.id === comment.post_id
+    );
+
+    fetch("http://localhost:3000/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(comment)
+    })
+      .then(res => res.json())
+      .then(res => {
+        const newCommentsList = [res, ...postObj.comments];
+        //
+        let newPostCollection = [...this.state.postCollection];
+        //
+        newPostCollection[indexPos].comments = newCommentsList;
+        //
+        this.setState({
+          postsCollection: newPostCollection
+        });
+      })
+      .catch(console.log);
+  };
+
+  // Handle Submit of a new post
+  handleSubmit = post => {
     if (post.title && post.content && post.topic) {
       let postObj = {
         ...post,
@@ -40,7 +107,6 @@ class MainContainer extends React.Component {
       })
         .then(res => res.json())
         .then(res => {
-            console.log(res)
           let newArray = [res, ...this.state.postCollection];
           //
           this.setState({
@@ -95,14 +161,13 @@ class MainContainer extends React.Component {
     fetch("http://localhost:3000/posts")
       .then(resp => resp.json())
       .then(data => {
-        console.log("fetch data:", data);
         let newArray = [...data];
 
         // sorting array by most engagement
         newArray.sort(function(a, b) {
           return b.upvotes + b.downvotes - (a.upvotes + a.downvotes);
         });
-
+        // set state with sorted array
         this.setState({
           postCollection: newArray
         });
@@ -114,18 +179,14 @@ class MainContainer extends React.Component {
       <div>
         <NavBar />
         <Topics />
-
-        {/* <CollapsedForm
-          handleSubmit={this.handleSubmit}
-          topicsList={this.state.topicsList}
-        />
-        <Filter /> */}
         <ContentContainer
+          handleCommentLike={this.handleCommentLike}
           handleUpvote={this.handleUpvote}
           posts={this.state.postCollection}
           handleDownvote={this.handleDownvote}
           handleSubmit={this.handleSubmit}
           topicsList={this.state.topicsList}
+          handleCommentSubmit={this.handleCommentSubmit}
         />
       </div>
     );

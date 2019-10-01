@@ -1,6 +1,5 @@
 import React from "react";
-import { Form, Input, TextArea, Button, Card, Radio, CheckBox } from "semantic-ui-react";
-
+import { Form, Input, TextArea, Button, Radio } from "semantic-ui-react";
 
 class NewCommentForm extends React.Component {
   state = {
@@ -13,8 +12,12 @@ class NewCommentForm extends React.Component {
     let key;
     let value;
 
-    ((e.target.innerText === 'Fact') || (e.target.innerText === 'Opinion')) ? (key = 'is_fact') : (key = e.target.name);
-    ((e.target.innerText === 'Fact') || (e.target.innerText === 'Opinion')) ? (value = (e.target.innerText === 'Fact')) : (value = e.target.value);
+    e.target.innerText === "Fact" || e.target.innerText === "Opinion"
+      ? (key = "is_fact")
+      : (key = e.target.name);
+    e.target.innerText === "Fact" || e.target.innerText === "Opinion"
+      ? (value = e.target.innerText === "Fact")
+      : (value = e.target.value);
     this.setState({
       [key]: value
     });
@@ -23,27 +26,28 @@ class NewCommentForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     const newComment = {
-      ...this.state, 
+      ...this.state,
       upvotes: 0,
       downvotes: 0,
       source_validated: 0,
       source_disputed: 0,
       user_id: 2,
-      post_id: this.props.post,
-    }
+      post_id: this.props.post.id
+    };
 
-    console.log('clicked')
-    fetch("http://localhost:3000/comments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        },
-        body: JSON.stringify(newComment)
-      })
-        .then(res => res.json())
-        .then(res => {
-          console.log(res)})
+    this.props.handleCommentSubmit(newComment);
+
+    // fetch("http://localhost:3000/comments", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Accept: "application/json"
+    //     },
+    //     body: JSON.stringify(newComment)
+    //   })
+    //     .then(res => res.json())
+    //     .then(res => {
+    //       console.log(res)})
     // const newCommentsList = [...this.props.post.comments, newComment]
     // const newPost = {...this.props.post, comments: newCommentsList}
     // this.props.handleSubmit(newPost);
@@ -89,10 +93,11 @@ class NewCommentForm extends React.Component {
     ];
 
     const radioButtonStyle = {
-      display: 'flex',
-      justifyContent: 'spaceBetween',
-      marginLeft: '.6em'
-    }
+      display: "flex",
+      justifyContent: "spaceBetween",
+      marginLeft: ".6em",
+      marginTop: "2em"
+    };
 
     let renderOptions = topicsList.map(topic => {
       return (
@@ -113,38 +118,40 @@ class NewCommentForm extends React.Component {
           value={this.state.content}
           onChange={this.handleChange}
         />
-        <Form.Group label="Fact or Opinion" style={{flexDirection: 'column'}}>
+        <Form.Group label="Fact or Opinion" style={{ flexDirection: "column" }}>
           {/* <label htmlFor="topic">Topic</label> */}
 
           <Form.Field
             name="source"
             id="form-input-control-first-name"
             control={Input}
-            label="Source"
-            placeholder="Source"
+            label="Please add a link to a resource that validates your claim."
+            placeholder="Source URL"
             value={this.state.title}
             onChange={this.handleChange}
           />
-          <Form.Group className='radio-buttons' style={{flexDirection: 'row'}}>
-            <Form.Checkbox 
-              label="Fact" 
-              control={Radio} 
+          <Form.Group
+            className="radio-buttons"
+            style={{ flexDirection: "row" }}
+          >
+            <Form.Checkbox
+              label="Fact"
+              control={Radio}
               style={radioButtonStyle}
               name="is_fact"
               checked={this.state.is_fact}
               onChange={this.handleChange}
-              value = {'true'}
+              value={"true"}
             />
-            <Form.Field 
-              label="Opinion" 
-              control={Radio} 
+            <Form.Field
+              label="Opinion"
+              control={Radio}
               style={radioButtonStyle}
               name="isFact"
               checked={!this.state.is_fact}
               onChange={this.handleChange}
             />
           </Form.Group>
-          
         </Form.Group>
         <Form.Field
           id="form-button-control-public"

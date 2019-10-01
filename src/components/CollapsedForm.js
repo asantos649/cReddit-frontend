@@ -1,6 +1,6 @@
 import React from "react";
 import NewForm from "./NewForm";
-import { Form, Input, TextArea, Button, Card } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
 
 export default class CollapsedForm extends React.Component {
   state = {
@@ -12,7 +12,6 @@ export default class CollapsedForm extends React.Component {
     this.setState({
       clicked: flipped
     });
-    console.log(this.state.clicked);
   };
 
   render() {

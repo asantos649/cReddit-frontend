@@ -2,6 +2,10 @@ import React from "react";
 import { Button, Card } from "semantic-ui-react";
 
 class Comment extends React.Component {
+  handleLike = e => {
+    this.props.handleCommentLike(this.props.comment);
+    // debugger;
+  };
   render() {
     const cardGroupStyle = {
       marginTop: "35px"
@@ -10,13 +14,28 @@ class Comment extends React.Component {
       marginLeft: "auto",
       marginRight: "auto",
       padding: "1em",
-      width: "750px"
+      width: "700px"
     };
     const cardHeaderStyle = {
       fontSize: "1em"
     };
     const cardDescriptionStyle = {
-      fontSize: "1em"
+      fontSize: "1em",
+      marginTop: "1em",
+      marginBottom: "1em"
+    };
+
+    const sourceDescriptionStyle = {
+      fontSize: "1em",
+
+      marginTop: "0.5em",
+      marginBottom: "0.5em",
+      marginRight: "8.5em"
+    };
+
+    const buttonStyle = {
+      height: "2em",
+      width: "2em"
     };
 
     return (
@@ -38,26 +57,70 @@ class Comment extends React.Component {
             </div>
           </Card.Content>
           <Card.Content>
-            <Card.Meta>{this.props.comment.created_at}</Card.Meta>
-            <Card.Description style={cardDescriptionStyle}>
+            <Card.Header style={cardDescriptionStyle}>
               {this.props.comment.content}
-            </Card.Description>
+            </Card.Header>
+            <Card.Meta>{this.props.comment.created_at}</Card.Meta>
           </Card.Content>
           <Card.Content extra>
             <div className="ui two buttons">
               <Button
                 basic
                 color="green"
-                onClick={this.handleUpvoteClick}
+                onClick={this.handleLike}
                 ref="upvoteButton"
               >
                 {this.props.comment.upvotes} Likes
               </Button>
-              <Button basic color="red" onClick={this.handleDownvoteClick}>
+              <Button basic color="red">
                 {this.props.comment.downvotes} Dislikes
               </Button>
             </div>
           </Card.Content>
+          {this.props.comment.source ? (
+            <Card.Content
+              extra
+              style={{
+                display: "inline-flex",
+                justifyContent: "space-between",
+                width: "200%",
+                height: "3em"
+              }}
+            >
+              <Card.Header style={sourceDescriptionStyle}>
+                Source URL:{" "}
+                <a target="blank" href={"https://" + this.props.comment.source}>
+                  {this.props.comment.source.length > 21
+                    ? this.props.comment.source.substring(0, 21).concat("...")
+                    : this.props.comment.source}
+                </a>
+              </Card.Header>
+              <div
+                className="ui two buttons"
+                style={{
+                  width: "45%"
+                }}
+              >
+                <Button
+                  basic
+                  style={buttonStyle}
+                  color="blue"
+                  onClick={this.handleUpvoteClick}
+                  ref="upvoteButton"
+                >
+                  {this.props.comment.upvotes} Validated
+                </Button>
+                <Button
+                  basic
+                  color="red"
+                  style={buttonStyle}
+                  onClick={this.handleDownvoteClick}
+                >
+                  {this.props.comment.downvotes} Disputed
+                </Button>
+              </div>
+            </Card.Content>
+          ) : null}
         </Card>
       </Card.Group>
     );

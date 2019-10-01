@@ -1,6 +1,6 @@
 import React from "react";
 import NewCommentForm from "./NewCommentForm";
-import { Form, Input, TextArea, Button, Card } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
 
 export default class CollapsedCommentForm extends React.Component {
   state = {
@@ -12,7 +12,10 @@ export default class CollapsedCommentForm extends React.Component {
     this.setState({
       clicked: flipped
     });
-    console.log(this.state.clicked);
+  };
+
+  handleSubmit = e => {
+    this.props.handleSubmit(e);
   };
 
   render() {
@@ -40,11 +43,14 @@ export default class CollapsedCommentForm extends React.Component {
               </div>
               {this.state.clicked ? (
                 <NewCommentForm
-                  handleSubmit={this.props.handleSubmit}
+                  handleCommentSubmit={this.props.handleCommentSubmit}
+                  handleSubmit={this.handleSubmit}
                   topicsList={this.props.topicsList}
                   post={this.props.post}
                 />
-              ) : null}
+              ) : (
+                <></>
+              )}
             </div>
           </Card.Content>
         </Card>

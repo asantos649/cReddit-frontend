@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, TextArea, Button, Card } from "semantic-ui-react";
+import { Form, Input, TextArea, Button } from "semantic-ui-react";
 
 class NewForm extends React.Component {
   state = {
@@ -12,13 +12,11 @@ class NewForm extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    // console.log(this.state);
   };
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.handleSubmit(this.state);
-    console.log("before", this.state);
   };
 
   render() {
