@@ -36,61 +36,12 @@ class NewCommentForm extends React.Component {
     };
 
     this.props.handleCommentSubmit(newComment);
-
-    // fetch("http://localhost:3000/comments", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json"
-    //     },
-    //     body: JSON.stringify(newComment)
-    //   })
-    //     .then(res => res.json())
-    //     .then(res => {
-    //       console.log(res)})
-    // const newCommentsList = [...this.props.post.comments, newComment]
-    // const newPost = {...this.props.post, comments: newCommentsList}
-    // this.props.handleSubmit(newPost);
   };
 
   render() {
-    const cardGroupStyle = {
-      marginTop: "35px"
-    };
-    const cardMarginStyle = {
-      marginLeft: "auto",
-      marginRight: "auto",
-      padding: "1em",
-      width: "750px"
-    };
-
-    const selectStyle = {
-      height: "2.7em",
-      marginTop: "0.3em",
-      padding: "1em"
-    };
-
     const buttonStyle = {
       backgroundColor: "#25aae1"
     };
-
-    const textStyle = {
-      fontSize: "12.5px",
-      fontWeight: "700"
-    };
-
-    const divStyle = {
-      width: "100%"
-    };
-
-    const topicsList = [
-      { name: "topic", key: "s", text: "Sports", value: "sports" },
-      { name: "topic", key: "p", text: "Politics", value: "politics" },
-      { name: "topic", key: "c", text: "Culture", value: "culture" },
-      { name: "topic", key: "t", text: "Technology", value: "technology" },
-      { name: "topic", key: "a", text: "Academic", value: "academics" },
-      { name: "topic", key: "o", text: "Other", value: "other" }
-    ];
 
     const radioButtonStyle = {
       display: "flex",
@@ -98,14 +49,6 @@ class NewCommentForm extends React.Component {
       marginLeft: ".6em",
       marginTop: "2em"
     };
-
-    let renderOptions = topicsList.map(topic => {
-      return (
-        <option key={topic.key} value={topic.value}>
-          {topic.text}
-        </option>
-      );
-    });
 
     return (
       <Form onSubmit={this.handleSubmit}>

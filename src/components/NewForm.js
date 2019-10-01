@@ -20,16 +20,6 @@ class NewForm extends React.Component {
   };
 
   render() {
-    const cardGroupStyle = {
-      marginTop: "35px"
-    };
-    const cardMarginStyle = {
-      marginLeft: "auto",
-      marginRight: "auto",
-      padding: "1em",
-      width: "750px"
-    };
-
     const selectStyle = {
       height: "2.7em",
       marginTop: "0.3em",
@@ -37,6 +27,8 @@ class NewForm extends React.Component {
     };
 
     const buttonStyle = {
+      color: "white",
+      fontWeight: "800",
       backgroundColor: "#25aae1"
     };
 
