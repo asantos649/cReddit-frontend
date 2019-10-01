@@ -11,7 +11,7 @@ class NavBar extends React.Component {
     const { activeItem } = this.state;
 
     return (
-      <Menu secondary>
+      <Menu fixed ='top'>
         <Menu.Item style={{marginRight: '0em'}}>
           <Link to='/'>
             <img src={`/Logo.png`} alt="cReddit" style={{height: '3em', marginLeft: '10px'}}></img>

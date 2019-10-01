@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Input, TextArea, Button, Card, Radio, CheckBox } from "semantic-ui-react";
 
+
 class NewCommentForm extends React.Component {
   state = {
     content: "",
