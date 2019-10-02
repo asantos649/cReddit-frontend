@@ -17,35 +17,29 @@ const cardMarginStyle = {
   };
 
 
-const SignUp = (props) => (
+const Login = (props) => (
 
     
 
     <Card.Group style={cardGroupStyle}>
        <Card style={cardMarginStyle}>
            <Card.Content>
-                <h1>Sign Up Here!</h1>
+                <h1>Login Here!</h1>
                 
                 <Formik
-                    initialValues={{ username: '', name: '', password: '' }}
+                    initialValues={{ username: '', password: '' }}
                     validate={values => {
                     let errors = {};
                     if (!values.username) {
                         errors.username = 'Required';
-                    //   } else if (
-                    //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                    //   ) {
-                    //     errors.email = 'Invalid email address';
                     }
                     return errors;
                     }}
-                    onSubmit={(values, { setSubmitting }) => { props.handleSignUp(values)}}
+                    onSubmit={(values, { setSubmitting }) => { props.handleLogin(values)}}
                 >
 
                     {({ isSubmitting }) => (
                     <Form>
-                        <Field type="name" name="name" placeholder='Name'/>
-                        <ErrorMessage name="name" component="div" />
                         <Field type="username" name="username" placeholder='User Name'/>
                         <ErrorMessage name="username" component="div" />
                         <Field type="password" name="password" placeholder='Password'/>
@@ -56,10 +50,12 @@ const SignUp = (props) => (
                     </Form>
                     )}
                 </Formik>
-                <Link to='/login'>Login</Link>
+                <Link to='/signup'>Sign up</Link>
         </Card.Content>
       </Card>
+      
     </Card.Group>
+    
   );
 
-export default SignUp
+export default Login

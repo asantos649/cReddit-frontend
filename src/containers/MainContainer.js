@@ -10,11 +10,6 @@ class MainContainer extends React.Component {
     postCollection: []
   };
 
-
-
-
-  //Handle Patch and Post of a comment
-
   updateComment = (comment) => {
     let postId;
     comment.post_id ? (postId = comment.post_id) : (postId = comment.post.id);
@@ -73,13 +68,10 @@ class MainContainer extends React.Component {
     let postId;
     comment.post_id ? (postId = comment.post_id) : (postId = comment.post.id);
 
-    console.log("comment", comment)
-
     const newUser = {...comment.user}
 
-    newUser.credibility = newUser.credibility += 1;
-
-    console.log(newUser.credibility)
+    let newScore = parseInt(newUser.credibility)
+    newUser.credibility =  newScore += 1;
 
     fetch(`http://localhost:3000/users/${comment.user.id}`, {
       method: 'PATCH',
@@ -90,8 +82,6 @@ class MainContainer extends React.Component {
       body: JSON.stringify(newUser)
     })
     .then(resp => resp.json())
-  
-    .catch(console.log);
 
     comment.source_validated = comment.source_validated += 1;
 
@@ -103,9 +93,8 @@ class MainContainer extends React.Component {
 
     const newUser = {...comment.user}
 
-    newUser.credibility = newUser.credibility -= 1;
-
-    console.log(newUser.credibility)
+    let newScore = parseInt(newUser.credibility)
+    newUser.credibility =  newScore -= 1;
 
     fetch(`http://localhost:3000/users/${comment.user.id}`, {
       method: 'PATCH',
@@ -155,7 +144,6 @@ class MainContainer extends React.Component {
       .catch(console.log);
   };
 
-  // Handle Submit of a new post
   handleSubmit = post => {
     // debugger
     if (post.title && post.content && post.topic) {
@@ -177,6 +165,8 @@ class MainContainer extends React.Component {
       })
         .then(res => res.json())
         .then(res => {
+
+          console.log(res)
           let newArray = [res, ...this.state.postCollection];
           //
           this.setState({
@@ -252,6 +242,7 @@ class MainContainer extends React.Component {
         <ContentContainer
           loggedInUser={this.props.loggedInUser}
           handleSignUp={this.props.handleSignUp}
+          handleLogin={this.props.handleLogin}
           handleSourceValidate={this.handleSourceValidate}
           handleSourceDispute={this.handleSourceDispute}
           handleCommentDislike={this.handleCommentDislike}

@@ -7,6 +7,10 @@ class NavBar extends React.Component {
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
+  onLogout = () => {
+    localStorage.clear()
+  }
+
   render() {
     const { activeItem } = this.state;
 
@@ -17,11 +21,14 @@ class NavBar extends React.Component {
             <img src={`/Logo.png`} alt="cReddit" style={{height: '3em', marginLeft: '10px'}}></img>
           </Link>
         </Menu.Item>
+
+        {localStorage.token ? 
         <Menu.Item>
           <Input icon="search" placeholder="Search..." />
         </Menu.Item>
+        : null }
         <Menu.Menu position="right">
-          <Menu.Item
+          {/* <Menu.Item
             name="NEW POST"
             active={activeItem === "home"}
             onClick={this.handleItemClick}
@@ -31,16 +38,18 @@ class NavBar extends React.Component {
             active={activeItem === "messages"}
             onClick={this.handleItemClick}
           />
-          <Menu.Item
-            name="PROFILE"
-            active={activeItem === "friends"}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name="LOGOUT"
-            active={activeItem === "logout"}
-            onClick={this.handleItemClick}
-          />
+
+           <Menu.Item 
+              active={activeItem === "logout"}
+              ><Link to='/signup' onClick={this.onLogout} style={{color: 'black'}}>LOGOUT</Link>
+            </Menu.Item> */}
+
+            {localStorage.token ? <Menu.Item 
+              active={activeItem === "logout"}
+              ><Link to='/signup' onClick={this.onLogout} style={{color: 'black'}}>LOGOUT</Link>
+            </Menu.Item>
+            : null}
+          
         </Menu.Menu>
       </Menu>
     );

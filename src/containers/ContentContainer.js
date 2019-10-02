@@ -3,6 +3,7 @@ import IndexContainer from "./IndexContainer";
 import { Route, Switch } from "react-router-dom";
 import ShowContainer from "./ShowContainer";
 import SignUp from '../components/SignUp'
+import Login from '../components/Login'
 
 class ContentContainer extends React.Component {
   render() {
@@ -15,6 +16,13 @@ class ContentContainer extends React.Component {
               return <SignUp handleSignUp={this.props.handleSignUp} />
             }}
           />
+          <Route 
+            exact path='/login'
+            render={() => {
+              return <Login handleLogin={this.props.handleLogin} />
+            }}
+          />
+
           <Route
             path="/posts/:id"
             render={({ match }) => {
