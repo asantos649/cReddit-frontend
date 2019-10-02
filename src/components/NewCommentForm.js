@@ -31,7 +31,7 @@ class NewCommentForm extends React.Component {
       downvotes: 0,
       source_validated: 0,
       source_disputed: 0,
-      user_id: 2,
+      user: this.props.loggedInUser,
       post_id: this.props.post.id
     };
 

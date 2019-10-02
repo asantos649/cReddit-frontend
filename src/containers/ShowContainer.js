@@ -4,7 +4,14 @@ import Comment from "../components/Comment";
 import CollapsedCommentForm from "../components/CollapsedCommentForm";
 
 class ShowContainer extends React.Component {
+
+  // maybe need this for rerendering user cred
+  // state = {
+  //   comments: this.props.user.comments
+  // }
+
   render() {
+
     let commentsComponents = null;
     let sortedComments = null;
 
@@ -14,11 +21,14 @@ class ShowContainer extends React.Component {
       });
       commentsComponents = sortedComments.map(comment => (
         <Comment
+          handleSourceValidate={this.props.handleSourceValidate}
+          handleSourceDispute={this.props.handleSourceDispute}
           handleCommentDislike={this.props.handleCommentDislike}
           handleCommentLike={this.props.handleCommentLike}
-          key={comment.id}
+          key={`${comment.user.username}-${Math.random(10000)}`}
           comment={comment}
           user={this.props.post.user}
+          loggedInUser={this.props.loggedInUser}
         />
       ));
     }
@@ -32,6 +42,8 @@ class ShowContainer extends React.Component {
           handleDownvote={this.props.handleDownvote}
         />
         <CollapsedCommentForm
+          loggedInUser={this.props.loggedInUser}
+          user={this.props.user}
           handleCommentSubmit={this.props.handleCommentSubmit}
           handleSubmit={this.props.handleSubmit}
           post={this.props.post}

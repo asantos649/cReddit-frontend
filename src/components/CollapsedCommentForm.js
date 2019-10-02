@@ -19,6 +19,10 @@ export default class CollapsedCommentForm extends React.Component {
   };
 
   render() {
+
+    console.log(this.props.loggedInUser);
+    
+
     const cardGroupStyle = {
       marginTop: "35px",
       marginBottom: "10px"
@@ -43,6 +47,7 @@ export default class CollapsedCommentForm extends React.Component {
               </div>
               {this.state.clicked ? (
                 <NewCommentForm
+                  loggedInUser={this.props.loggedInUser}
                   handleCommentSubmit={this.props.handleCommentSubmit}
                   handleSubmit={this.handleSubmit}
                   topicsList={this.props.topicsList}

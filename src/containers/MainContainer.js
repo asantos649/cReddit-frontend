@@ -10,13 +10,14 @@ class MainContainer extends React.Component {
     postCollection: []
   };
 
-  handleCommentDislike = comment => {
-    comment.downvotes = comment.downvotes += 1;
 
+
+
+  //Handle Patch and Post of a comment
+
+  updateComment = (comment) => {
     let postId;
     comment.post_id ? (postId = comment.post_id) : (postId = comment.post.id);
-
-    console.log("callback object recieved:", comment);
 
     fetch(`http://localhost:3000/comments/${comment.id}`, {
       method: "PATCH",
@@ -30,11 +31,9 @@ class MainContainer extends React.Component {
       .then(res => {
         let newPostCollection = [...this.state.postCollection];
         //
-        console.log(comment.post_id);
 
         let postObj = newPostCollection.find(post => post.id === postId);
         //
-        console.log("post obj", postObj);
 
         let commentInd = postObj.comments.findIndex(c => c.id === comment.id);
         //
@@ -52,51 +51,77 @@ class MainContainer extends React.Component {
         });
       })
       .catch(console.log);
+
+  }
+
+  handleCommentDislike = comment => {
+    comment.downvotes = comment.downvotes += 1;
+
+    this.updateComment(comment)
+
   };
 
   handleCommentLike = comment => {
     comment.upvotes = comment.upvotes += 1;
 
+    this.updateComment(comment)
+
+  };
+
+  handleSourceValidate = comment => {
+
     let postId;
     comment.post_id ? (postId = comment.post_id) : (postId = comment.post.id);
 
-    console.log("callback object recieved:", comment);
+    console.log("comment", comment)
 
-    fetch(`http://localhost:3000/comments/${comment.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
+    const newUser = {...comment.user}
+
+    newUser.credibility = newUser.credibility += 1;
+
+    console.log(newUser.credibility)
+
+    fetch(`http://localhost:3000/users/${comment.user.id}`, {
+      method: 'PATCH',
+      headers:{
+        'Content-Type': 'application/json',
+        accepts: "application/json" 
       },
-      body: JSON.stringify(comment)
+      body: JSON.stringify(newUser)
     })
-      .then(res => res.json())
-      .then(res => {
-        let newPostCollection = [...this.state.postCollection];
-        //
-        console.log(comment.post_id);
+    .then(resp => resp.json())
+  
+    .catch(console.log);
 
-        let postObj = newPostCollection.find(post => post.id === postId);
-        //
-        console.log("post obj", postObj);
+    comment.source_validated = comment.source_validated += 1;
 
-        let commentInd = postObj.comments.findIndex(c => c.id === comment.id);
-        //
-        postObj.comments[commentInd] = res;
+    this.updateComment(comment)
+  
+  }
 
-        //
-        let indexPos = this.state.postCollection.findIndex(
-          post => post.id === comment.post_id
-        );
+  handleSourceDispute = comment => {
 
-        newPostCollection[indexPos] = postObj;
+    const newUser = {...comment.user}
 
-        this.setState({
-          postsCollection: newPostCollection
-        });
-      })
-      .catch(console.log);
-  };
+    newUser.credibility = newUser.credibility -= 1;
+
+    console.log(newUser.credibility)
+
+    fetch(`http://localhost:3000/users/${comment.user.id}`, {
+      method: 'PATCH',
+      headers:{
+        'Content-Type': 'application/json',
+        accepts: "application/json" 
+      },
+      body: JSON.stringify(newUser)
+    })
+    .then(resp => resp.json())
+
+
+    comment.source_disputed = comment.source_disputed += 1;
+
+    this.updateComment(comment)
+  }
 
   handleCommentSubmit = comment => {
     let postObj = this.state.postCollection.find(
@@ -132,13 +157,14 @@ class MainContainer extends React.Component {
 
   // Handle Submit of a new post
   handleSubmit = post => {
+    // debugger
     if (post.title && post.content && post.topic) {
       let postObj = {
         ...post,
-        image_url: null,
+        image_url: '',
+        user: this.props.loggedInUser,
         upvotes: 0,
-        downvotes: 0,
-        user_id: 3
+        downvotes: 0
       };
 
       fetch("http://localhost:3000/posts", {
@@ -201,12 +227,12 @@ class MainContainer extends React.Component {
       .catch(console.log);
   };
 
+
   componentDidMount() {
     fetch("http://localhost:3000/posts")
       .then(resp => resp.json())
       .then(data => {
         let newArray = [...data];
-
         // sorting array by most engagement
         newArray.sort(function(a, b) {
           return b.upvotes + b.downvotes - (a.upvotes + a.downvotes);
@@ -224,6 +250,10 @@ class MainContainer extends React.Component {
         <NavBar />
         <Topics />
         <ContentContainer
+          loggedInUser={this.props.loggedInUser}
+          handleSignUp={this.props.handleSignUp}
+          handleSourceValidate={this.handleSourceValidate}
+          handleSourceDispute={this.handleSourceDispute}
           handleCommentDislike={this.handleCommentDislike}
           handleCommentLike={this.handleCommentLike}
           handleUpvote={this.handleUpvote}

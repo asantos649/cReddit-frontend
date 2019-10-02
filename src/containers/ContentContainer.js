@@ -2,12 +2,19 @@ import React from "react";
 import IndexContainer from "./IndexContainer";
 import { Route, Switch } from "react-router-dom";
 import ShowContainer from "./ShowContainer";
+import SignUp from '../components/SignUp'
 
 class ContentContainer extends React.Component {
   render() {
     return (
       <div>
         <Switch>
+          <Route 
+            exact path='/signup'
+            render={() => {
+              return <SignUp handleSignUp={this.props.handleSignUp} />
+            }}
+          />
           <Route
             path="/posts/:id"
             render={({ match }) => {
@@ -15,10 +22,12 @@ class ContentContainer extends React.Component {
                 post => parseInt(match.params.id) === post.id
               );
 
-              //   console.log(matchingPost);
-
               return (
                 <ShowContainer
+                  loggedInUser={this.props.loggedInUser}
+                  user={this.props.user}
+                  handleSourceValidate={this.props.handleSourceValidate}
+                  handleSourceDispute={this.props.handleSourceDispute}
                   handleCommentDislike={this.props.handleCommentDislike}
                   handleCommentLike={this.props.handleCommentLike}
                   topicsList={this.props.topicsList}

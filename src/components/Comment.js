@@ -2,13 +2,23 @@ import React from "react";
 import { Button, Card } from "semantic-ui-react";
 
 class Comment extends React.Component {
+
+
   handleLike = e => {
     this.props.handleCommentLike(this.props.comment);
-    // debugger;
   };
 
   handleDislike = e => {
     this.props.handleCommentDislike(this.props.comment);
+  };
+
+  handleSourceValidate = e => {
+    this.props.handleSourceValidate(this.props.comment);
+
+  };
+
+  handleSourceDispute = e => {
+    this.props.handleSourceDispute(this.props.comment);
   };
 
   render() {
@@ -57,7 +67,7 @@ class Comment extends React.Component {
                 {this.props.comment.is_fact ? "Fact" : "Opinion"}
               </Card.Header>
               <Card.Meta>
-                @{this.props.user.username} | {this.props.user.credibility} pts
+                @{this.props.comment.user.username} | {this.props.user.credibility} pts
               </Card.Meta>
             </div>
           </Card.Content>
@@ -110,7 +120,7 @@ class Comment extends React.Component {
                   basic
                   style={buttonStyle}
                   color="blue"
-                  onClick={this.handleUpvoteClick}
+                  onClick={this.handleSourceValidate}
                   ref="upvoteButton"
                 >
                   {this.props.comment.source_validated} Validated
@@ -119,7 +129,7 @@ class Comment extends React.Component {
                   basic
                   color="red"
                   style={buttonStyle}
-                  onClick={this.handleDownvoteClick}
+                  onClick={this.handleSourceDispute}
                 >
                   {this.props.comment.source_disputed} Disputed
                 </Button>
