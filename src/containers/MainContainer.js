@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar";
 import ContentContainer from "./ContentContainer";
 // import NewForm from "../components/NewForm";
 import { withRouter } from "react-router-dom";
+import { log } from "util";
 
 class MainContainer extends React.Component {
   state = {
@@ -66,6 +67,8 @@ class MainContainer extends React.Component {
     let newScore = parseInt(newUser.credibility);
     newUser.credibility = newScore += 1;
 
+    console.log(newUser);
+
     fetch(`http://localhost:3000/users/${comment.user.id}`, {
       method: "PATCH",
       headers: {
@@ -101,7 +104,6 @@ class MainContainer extends React.Component {
     })
       .then(resp => resp.json())
       .then(resp => {
-        console.log(resp);
         let newCommentScore = parseInt(comment.source_disputed);
 
         comment.source_disputed = newCommentScore += 1;
@@ -134,8 +136,6 @@ class MainContainer extends React.Component {
         let newPostCollection = [...this.state.postCollection];
         //
         newPostCollection[indexPos].comments = newCommentsList;
-
-        console.log("new posts", newPostCollection);
         //
         this.setState({
           postsCollection: newPostCollection
@@ -165,7 +165,6 @@ class MainContainer extends React.Component {
       })
         .then(res => res.json())
         .then(res => {
-          console.log(res);
           let newArray = [res, ...this.state.postCollection];
           //
           this.setState({

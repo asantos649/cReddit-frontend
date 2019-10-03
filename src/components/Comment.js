@@ -2,8 +2,6 @@ import React from "react";
 import { Button, Card } from "semantic-ui-react";
 
 class Comment extends React.Component {
-
-
   handleLike = e => {
     this.props.handleCommentLike(this.props.comment);
   };
@@ -13,9 +11,7 @@ class Comment extends React.Component {
   };
 
   handleSourceValidate = e => {
-    console.log(this.props.comment)
     this.props.handleSourceValidate(this.props.comment);
-
   };
 
   handleSourceDispute = e => {
@@ -68,7 +64,8 @@ class Comment extends React.Component {
                 {this.props.comment.is_fact ? "Fact" : "Opinion"}
               </Card.Header>
               <Card.Meta>
-                @{this.props.comment.user.username} | {this.props.comment.user.credibility} pts
+                @{this.props.comment.user.username} |{" "}
+                {this.props.comment.user.credibility} pts
               </Card.Meta>
             </div>
           </Card.Content>

@@ -1,20 +1,16 @@
 import React from "react";
 import { Button, Card } from "semantic-ui-react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 class Post extends React.Component {
   handleUpvoteClick = e => {
     e.preventDefault();
     this.props.handleUpvote(this.props.post);
-    // disable button after click
-    // this.refs.upvoteButton.setAttribute("disabled", "disabled");
   };
 
   handleDownvoteClick = e => {
     e.preventDefault();
     this.props.handleDownvote(this.props.post);
-    // disable button after click
-    // this.refs.upvoteButton.setAttribute("disabled", "disabled");
   };
 
   render() {
@@ -40,16 +36,19 @@ class Post extends React.Component {
       <Card.Group style={cardGroupStyle}>
         <Card style={cardMarginStyle}>
           <Card.Content>
-              <Link to={`/posts/${this.props.post.id}`} style={{ textDecoration: 'none', color: '#000000' }} >
-                <Card.Header style={cardHeaderStyle}>
+            <Link
+              to={`/posts/${this.props.post.id}`}
+              style={{ textDecoration: "none", color: "#000000" }}
+            >
+              <Card.Header style={cardHeaderStyle}>
                 {this.props.post.title}
-                </Card.Header>
-                {/* <Card.Meta>@{this.props.post.user.username}</Card.Meta> */}
-                <Card.Meta>{this.props.post.topic}</Card.Meta>
-                <Card.Description style={cardDescriptionStyle}>
+              </Card.Header>
+              {/* <Card.Meta>@{this.props.post.user.username}</Card.Meta> */}
+              <Card.Meta>{this.props.post.topic}</Card.Meta>
+              <Card.Description style={cardDescriptionStyle}>
                 {this.props.post.content}
-                </Card.Description>
-              </Link>
+              </Card.Description>
+            </Link>
           </Card.Content>
           <Card.Content extra>
             <div className="ui two buttons">
@@ -65,11 +64,23 @@ class Post extends React.Component {
                 {this.props.post.downvotes} Dislikes
               </Button>
             </div>
-            <Link to={`/posts/${this.props.post.id}`} style={{ textDecoration: 'none', color: '#000000' }} >
-                <Card.Meta style={{textAlign: 'left', marginTop: '1em'}}>
-                    <img src='/commentIcon.png' alt="comment" style={{height:'1.1em', opacity: '0.4', marginRight: '4px'}}>
-                    </img>{this.props.post.comments ? this.props.post.comments.length : 0} {this.props.post.comments.length === 1 ? 'Comment' : 'Comments'}
-                </Card.Meta> 
+            <Link
+              to={`/posts/${this.props.post.id}`}
+              style={{ textDecoration: "none", color: "#000000" }}
+            >
+              <Card.Meta style={{ textAlign: "left", marginTop: "1em" }}>
+                <img
+                  src="/commentIcon.png"
+                  alt="comment"
+                  style={{
+                    height: "1.1em",
+                    opacity: "0.4",
+                    marginRight: "4px"
+                  }}
+                ></img>
+                {this.props.post.comments ? this.props.post.comments.length : 0}{" "}
+                {this.props.post.comments.length === 1 ? "Comment" : "Comments"}
+              </Card.Meta>
             </Link>
           </Card.Content>
         </Card>

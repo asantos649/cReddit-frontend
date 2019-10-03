@@ -1,12 +1,27 @@
 import React from "react";
 
 export default class Filter extends React.Component {
+  state = {
+    filterValue: "engaged"
+  };
+
+  handleChange = e => {
+    this.setState({
+      filterValue: e.target.value
+    });
+    this.props.handleFilter(e.target.value);
+  };
+
   render() {
     return (
-      <select className="filter-selector">
-        <option>Most Engaged</option>
-        <option>Most Agreed With</option>
-        <option>Most Disagreed With</option>
+      <select
+        onChange={this.handleChange}
+        name="filterValue"
+        className="filter-selector"
+      >
+        <option value="engaged">Most Engaged</option>
+        <option value="popular">Most Agreed With</option>
+        <option value="unpopular">Most Disagreed With</option>
       </select>
     );
   }

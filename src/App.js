@@ -8,8 +8,6 @@ class App extends React.Component {
     loggedInUser: {}
   };
 
-  //Sigup
-
   handleSignUp = userData => {
     userData.credibility = 100;
 
@@ -23,8 +21,6 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(resp => {
-        console.log(resp);
-
         if (resp.code !== 69) {
           this.setState({
             loggedInUser: resp
@@ -35,7 +31,6 @@ class App extends React.Component {
         return resp;
       })
       .then(resp => {
-        console.log(resp);
         if (resp.code !== 69) {
           localStorage.setItem("token", resp.token);
           this.props.history.push("/");
@@ -44,7 +39,6 @@ class App extends React.Component {
   };
 
   handleLogin = userData => {
-    console.log("in login", userData);
     fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {
@@ -55,7 +49,6 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(resp => {
-        console.log(resp);
         this.setState({
           loggedInUser: resp["user"]
         });
@@ -67,8 +60,6 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props.match);
-
     let token = localStorage.getItem("token");
     if (token) {
       fetch("http://localhost:3000/user_profile", {
@@ -85,8 +76,9 @@ class App extends React.Component {
             loggedInUser: res["user"]
           });
         });
-      this.props.history.push("/");
-    } else if (this.props.match.path === "/signup") {
+
+      this.props.history.push(this.props.location.pathname);
+    } else if (this.props.location.pathname === "/signup") {
       return null;
     } else {
       this.props.history.push("/login");

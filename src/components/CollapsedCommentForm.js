@@ -19,7 +19,6 @@ export default class CollapsedCommentForm extends React.Component {
   };
 
   render() {
-
     const cardGroupStyle = {
       marginTop: "35px",
       marginBottom: "10px"
