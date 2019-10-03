@@ -55,9 +55,9 @@
   padding: 1em;
 }
 
-.buttonStyle {
+/* .buttonStyle {
   background-color: #25aae1;
-}
+} */
 
 .textStyle {
   font-size: 12.5px;
@@ -79,5 +79,5 @@ div#comment-link.meta {
 }
 
 .radio-buttons {
-  flex-direction: row
+  flex-direction: row;
 }

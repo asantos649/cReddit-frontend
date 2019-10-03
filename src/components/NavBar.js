@@ -3,7 +3,7 @@ import { Input, Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class NavBar extends React.Component {
-  state = { activeItem: "home" };
+  state = {};
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
@@ -17,7 +17,7 @@ class NavBar extends React.Component {
     return (
       <Menu fixed="top">
         <Menu.Item style={{ marginRight: "0em" }}>
-          <Link to="/">
+          <Link to={localStorage.token ? "/" : "/login"}>
             <img
               src={`/Logo.png`}
               alt="cReddit"
@@ -26,11 +26,11 @@ class NavBar extends React.Component {
           </Link>
         </Menu.Item>
 
-        {localStorage.token ? (
+        {/* {localStorage.token ? (
           <Menu.Item>
             <Input icon="search" placeholder="Search..." />
           </Menu.Item>
-        ) : null}
+        ) : null} */}
         <Menu.Menu position="right">
           {localStorage.token ? (
             <Menu.Item active={activeItem === "logout"}>

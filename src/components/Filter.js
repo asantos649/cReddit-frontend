@@ -20,8 +20,8 @@ export default class Filter extends React.Component {
         className="filter-selector"
       >
         <option value="engaged">Most Engaged</option>
-        <option value="popular">Most Agreed With</option>
-        <option value="unpopular">Most Disagreed With</option>
+        <option value="popular">Most Likes</option>
+        <option value="unpopular">Most Dislikes</option>
       </select>
     );
   }

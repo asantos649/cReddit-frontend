@@ -36,18 +36,42 @@ const SignUp = props => (
           }}
         >
           {({ isSubmitting }) => (
-            <Form>
-              <Field type="name" name="name" placeholder="Name" />
+            <Form className="auth-form">
+              <h4>Please sign up with your Full Name, Username and Password</h4>
+              <Field
+                className="login-field"
+                type="name"
+                name="name"
+                placeholder="Name"
+              />
               <ErrorMessage name="name" component="div" />
-              <Field type="username" name="username" placeholder="User Name" />
+              <Field
+                className="login-field"
+                type="username"
+                name="username"
+                placeholder="User Name"
+              />
               <ErrorMessage name="username" component="div" />
-              <Field type="password" name="password" placeholder="Password" />
+              <Field
+                className="login-field"
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
               <ErrorMessage name="password" component="div" />
-              <button type="submit" /*disabled={isSubmitting}*/>Submit</button>
+              <div className="auth-button-row">
+                <Link to="/login">Login</Link>
+
+                <button
+                  className="auth-button"
+                  type="submit" /*disabled={isSubmitting}*/
+                >
+                  Submit
+                </button>
+              </div>
             </Form>
           )}
         </Formik>
-        <Link to="/login">Login</Link>
       </Card.Content>
     </Card>
   </Card.Group>

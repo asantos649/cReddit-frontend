@@ -40,7 +40,9 @@ class NewCommentForm extends React.Component {
 
   render() {
     const buttonStyle = {
-      backgroundColor: "#25aae1"
+      color: "white",
+      fontWeight: "700",
+      backgroundColor: "#5cd1c5"
     };
 
     const radioButtonStyle = {
@@ -102,7 +104,7 @@ class NewCommentForm extends React.Component {
         <Form.Field
           id="form-button-control-public"
           control={Button}
-          content="Post"
+          content="Comment"
           style={buttonStyle}
           // label="Label with htmlFor"
         />

@@ -29,7 +29,7 @@ class NewForm extends React.Component {
     const buttonStyle = {
       color: "white",
       fontWeight: "800",
-      backgroundColor: "#25aae1"
+      backgroundColor: "#5cd1c5"
     };
 
     const textStyle = {

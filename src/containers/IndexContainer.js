@@ -64,7 +64,12 @@ class IndexContainer extends React.Component {
     });
 
     return sortedPosts.length === 0 ? (
-      <h1>Loading...</h1>
+      <div>
+        <CollapsedForm
+          handleSubmit={this.props.handleSubmit}
+          topicsList={this.props.topicsList}
+        />
+      </div>
     ) : (
       <div>
         <CollapsedForm

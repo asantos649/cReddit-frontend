@@ -32,7 +32,7 @@ class Comment extends React.Component {
       fontSize: "1em"
     };
     const cardDescriptionStyle = {
-      fontSize: "1em",
+      fontSize: "1.5em",
       marginTop: "1em",
       marginBottom: "1em"
     };
@@ -73,7 +73,7 @@ class Comment extends React.Component {
             <Card.Header style={cardDescriptionStyle}>
               {this.props.comment.content}
             </Card.Header>
-            <Card.Meta>{this.props.comment.created_at}</Card.Meta>
+            {/* <Card.Meta>{this.props.comment.created_at}</Card.Meta> */}
           </Card.Content>
           <Card.Content extra>
             <div className="ui two buttons">
@@ -102,7 +102,7 @@ class Comment extends React.Component {
             >
               <Card.Header style={sourceDescriptionStyle}>
                 Source URL:{" "}
-                <a target="blank" href={"https://" + this.props.comment.source}>
+                <a target="blank" href={this.props.comment.source}>
                   {this.props.comment.source.length > 21
                     ? this.props.comment.source.substring(0, 21).concat("...")
                     : this.props.comment.source}

@@ -22,3 +22,40 @@ select:focus {
 option {
   background-color: white;
 }
+
+.auth-button {
+  border-radius: 5px;
+  color: white;
+  font-weight: 700;
+  margin-left: auto;
+  padding: 0.3em;
+  width: 30%;
+  background-color: #5cd1c5;
+}
+
+.auth-button:hover {
+  background-color: #5cbfb5;
+  box-shadow: 1px 1px 5px #b0afaf;
+}
+
+.auth-button-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: auto;
+  width: 60%;
+}
+
+.login-field {
+  border: none;
+  border-radius: 5px;
+  background-color: #eeecec;
+  height: 2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}

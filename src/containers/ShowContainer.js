@@ -4,14 +4,7 @@ import Comment from "../components/Comment";
 import CollapsedCommentForm from "../components/CollapsedCommentForm";
 
 class ShowContainer extends React.Component {
-
-  // maybe need this for rerendering user cred
-  // state = {
-  //   comments: this.props.user.comments
-  // }
-
   render() {
-
     let commentsComponents = null;
     let sortedComments = null;
 

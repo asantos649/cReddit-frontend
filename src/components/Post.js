@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { genericTypeAnnotation } from "@babel/types";
 
 class Post extends React.Component {
   handleUpvoteClick = e => {
@@ -25,16 +26,28 @@ class Post extends React.Component {
       width: "750px"
     };
     const cardHeaderStyle = {
-      fontSize: "2em",
-      marginBottom: "0.2em"
+      fontSize: "1.5em",
+      marginBottom: "1em"
     };
     const cardDescriptionStyle = {
-      fontSize: "1em"
+      color: "grey",
+      fontSize: "1.3em"
     };
+    const cardExtraStyle = {
+      display: "flex",
+      justifyContent: "space-between"
+    };
+
     // STYLES
     return (
       <Card.Group style={cardGroupStyle}>
         <Card style={cardMarginStyle}>
+          <Card.Content extra>
+            <div style={cardExtraStyle}>
+              <Card.Meta>{this.props.post.topic.toUpperCase()}</Card.Meta>
+              <Card.Meta>@{this.props.post.user.username}</Card.Meta>
+            </div>
+          </Card.Content>
           <Card.Content>
             <Link
               to={`/posts/${this.props.post.id}`}
@@ -43,8 +56,6 @@ class Post extends React.Component {
               <Card.Header style={cardHeaderStyle}>
                 {this.props.post.title}
               </Card.Header>
-              {/* <Card.Meta>@{this.props.post.user.username}</Card.Meta> */}
-              <Card.Meta>{this.props.post.topic}</Card.Meta>
               <Card.Description style={cardDescriptionStyle}>
                 {this.props.post.content}
               </Card.Description>
