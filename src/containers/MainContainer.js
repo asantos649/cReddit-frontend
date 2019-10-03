@@ -10,7 +10,7 @@ class MainContainer extends React.Component {
     postCollection: []
   };
 
-  updateComment = (comment) => {
+  updateComment = comment => {
     let postId;
     comment.post_id ? (postId = comment.post_id) : (postId = comment.post.id);
 
@@ -46,71 +46,69 @@ class MainContainer extends React.Component {
         });
       })
       .catch(console.log);
-
-  }
+  };
 
   handleCommentDislike = comment => {
     comment.downvotes = comment.downvotes += 1;
 
-    this.updateComment(comment)
-
+    this.updateComment(comment);
   };
 
   handleCommentLike = comment => {
     comment.upvotes = comment.upvotes += 1;
 
-    this.updateComment(comment)
-
+    this.updateComment(comment);
   };
 
   handleSourceValidate = comment => {
+    const newUser = { ...comment.user };
 
-    let postId;
-    comment.post_id ? (postId = comment.post_id) : (postId = comment.post.id);
-
-    const newUser = {...comment.user}
-
-    let newScore = parseInt(newUser.credibility)
-    newUser.credibility =  newScore += 1;
+    let newScore = parseInt(newUser.credibility);
+    newUser.credibility = newScore += 1;
 
     fetch(`http://localhost:3000/users/${comment.user.id}`, {
-      method: 'PATCH',
-      headers:{
-        'Content-Type': 'application/json',
-        accepts: "application/json" 
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accepts: "application/json"
       },
       body: JSON.stringify(newUser)
     })
-    .then(resp => resp.json())
+      .then(resp => resp.json())
+      .then(resp => {
+        console.log(resp);
+        let newCommentScore = parseInt(comment.source_validated);
 
-    comment.source_validated = comment.source_validated += 1;
+        comment.source_validated = newCommentScore += 1;
 
-    this.updateComment(comment)
-  
-  }
+        this.updateComment(comment);
+      });
+  };
 
   handleSourceDispute = comment => {
+    const newUser = { ...comment.user };
 
-    const newUser = {...comment.user}
-
-    let newScore = parseInt(newUser.credibility)
-    newUser.credibility =  newScore -= 1;
+    let newScore = parseInt(newUser.credibility);
+    newUser.credibility = newScore -= 1;
 
     fetch(`http://localhost:3000/users/${comment.user.id}`, {
-      method: 'PATCH',
-      headers:{
-        'Content-Type': 'application/json',
-        accepts: "application/json" 
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accepts: "application/json"
       },
       body: JSON.stringify(newUser)
     })
-    .then(resp => resp.json())
+      .then(resp => resp.json())
+      .then(resp => {
+        console.log(resp);
+        let newCommentScore = parseInt(comment.source_disputed);
 
+        comment.source_disputed = newCommentScore += 1;
 
-    comment.source_disputed = comment.source_disputed += 1;
-
-    this.updateComment(comment)
-  }
+        this.updateComment(comment);
+      });
+  };
 
   handleCommentSubmit = comment => {
     let postObj = this.state.postCollection.find(
@@ -136,6 +134,8 @@ class MainContainer extends React.Component {
         let newPostCollection = [...this.state.postCollection];
         //
         newPostCollection[indexPos].comments = newCommentsList;
+
+        console.log("new posts", newPostCollection);
         //
         this.setState({
           postsCollection: newPostCollection
@@ -149,7 +149,7 @@ class MainContainer extends React.Component {
     if (post.title && post.content && post.topic) {
       let postObj = {
         ...post,
-        image_url: '',
+        image_url: "",
         user: this.props.loggedInUser,
         upvotes: 0,
         downvotes: 0
@@ -165,8 +165,7 @@ class MainContainer extends React.Component {
       })
         .then(res => res.json())
         .then(res => {
-
-          console.log(res)
+          console.log(res);
           let newArray = [res, ...this.state.postCollection];
           //
           this.setState({
@@ -216,7 +215,6 @@ class MainContainer extends React.Component {
       })
       .catch(console.log);
   };
-
 
   componentDidMount() {
     fetch("http://localhost:3000/posts")

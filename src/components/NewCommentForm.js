@@ -50,6 +50,8 @@ class NewCommentForm extends React.Component {
       marginTop: "2em"
     };
 
+    const isItTho = this.state.is_fact && this.state.source ? true : false;
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field
@@ -82,9 +84,10 @@ class NewCommentForm extends React.Component {
               control={Radio}
               style={radioButtonStyle}
               name="is_fact"
-              checked={this.state.is_fact}
+              checked={isItTho}
               onChange={this.handleChange}
               value={"true"}
+              disabled={!this.state.source}
             />
             <Form.Field
               label="Opinion"
