@@ -41,6 +41,7 @@ export default class CollapsedForm extends React.Component {
                 <NewForm
                   handleSubmit={this.props.handleSubmit}
                   topicsList={this.props.topicsList}
+                  handleClick={this.handleClick}
                 />
               ) : null}
             </div>

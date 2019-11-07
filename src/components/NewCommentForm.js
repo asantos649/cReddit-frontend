@@ -36,6 +36,7 @@ class NewCommentForm extends React.Component {
     };
 
     this.props.handleCommentSubmit(newComment);
+    this.props.handleClick();
   };
 
   render() {

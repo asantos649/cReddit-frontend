@@ -17,6 +17,7 @@ class NewForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.handleSubmit(this.state);
+    this.props.handleClick();
   };
 
   render() {
